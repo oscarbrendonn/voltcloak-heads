@@ -43,7 +43,11 @@
     <button data-src="h4.glb">4 · Kumral</button>
     <button data-src="h5.glb">5 · Esmer</button>
     <button data-src="h6.glb" class="active">6 · Kombo ★</button>
-    <button data-src="h7.glb" id="h7btn" style="display:none">7 · Şimşek</button>
+    <button data-src="h7.glb">7 · Şimşek</button>
+    <button data-src="h8.glb">8 · Kafa (indirme)</button>
+    <button data-src="h9.glb">9 · Karakter 1</button>
+    <button data-src="h10.glb">10 · Karakter 2</button>
+    <button data-src="h11.glb">11 · Karakter 3</button>
   </div>
 </div>
 <script>
@@ -55,7 +59,6 @@
       mv.setAttribute('src', b.dataset.src);
     });
   });
-  fetch('h7.glb',{method:'HEAD'}).then(r=>{ if(r.ok) document.getElementById('h7btn').style.display=''; }).catch(()=>{});
 </script>
 </body>
 </html>
