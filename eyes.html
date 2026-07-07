@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>67 Eyes — Göz Koleksiyonu</title>
+<script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+<style>
+  :root{ --bg:#05070d; --panel:#0d1420; --txt:#e6edf3; --accute:#2f81f7; }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; height:100%; background:var(--bg); color:var(--txt);
+    font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; }
+  header{ padding:14px 18px; text-align:center; }
+  header h1{ margin:0; font-size:18px; font-weight:650; letter-spacing:.2px; }
+  header p{ margin:4px 0 0; font-size:13px; opacity:.6; }
+  .wrap{ height:calc(100% - 64px); display:flex; flex-direction:column; }
+  model-viewer{ flex:1; width:100%; background:
+    radial-gradient(120% 90% at 50% 40%, #0f1830 0%, #05070d 70%); }
+  .bar{ display:flex; gap:8px; justify-content:center; padding:12px;
+    background:var(--panel); border-top:1px solid #16202e; flex-wrap:wrap; }
+  button{ appearance:none; border:1px solid #24405f; background:#0f1a2b; color:var(--txt);
+    padding:9px 16px; border-radius:10px; font-size:14px; font-weight:600; cursor:pointer;
+    transition:.15s; }
+  button:hover{ border-color:#3d6da8; }
+  button.active{ background:var(--accute); border-color:var(--accute); color:#fff; }
+</style>
+</head>
+<body>
+<header>
+  <h1>67 Eyes — Mavi Elektrik Göz Koleksiyonu</h1>
+  <p>drag to rotate · scroll to zoom · birini seç</p>
+</header>
+<div class="wrap">
+  <model-viewer id="mv" src="eyes/sade.glb" alt="67 glowing eyes collection"
+    camera-controls auto-rotate auto-rotate-delay="0" rotation-per-second="18deg"
+    shadow-intensity="0" exposure="1.25" environment-image="neutral" tone-mapping="neutral"
+    camera-orbit="0deg 88deg 1.4m" min-camera-orbit="auto 0deg auto" touch-action="pan-y">
+  </model-viewer>
+  <div class="bar">
+    <button data-src="eyes/sade.glb" class="active">1 · Sade (mavimsi çekirdek)</button>
+    <button data-src="eyes/elektrik.glb">2 · Elektrik</button>
+    <button data-src="eyes/derin.glb">3 · Derin Mavi</button>
+    <button data-src="eyes/kedi.glb">4 · Kedi Göz</button>
+    <button data-src="eyes/simsek.glb">5 · Şimşekli</button>
+  </div>
+</div>
+<script>
+  const mv = document.getElementById('mv');
+  document.querySelectorAll('.bar button').forEach(b=>{
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('.bar button').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      mv.setAttribute('src', b.dataset.src);
+    });
+  });
+</script>
+</body>
+</html>
