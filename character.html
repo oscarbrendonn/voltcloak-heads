@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>67 · Karakter Review</title>
+<title>67 · Character Review</title>
 <script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap');
@@ -30,25 +30,25 @@
 </head>
 <body>
 <header>
-  <h1>67 · Karakter Review</h1>
-  <p>sürükle · döndür · yakınlaştır — inceleme için</p>
+  <h1>67 · Character Review</h1>
+  <p>drag · rotate · zoom — for review</p>
 </header>
 <div class="wrap">
   <div class="bar chars">
-    <button class="char active" data-src="character67.glb" data-front="0">Sağdaki (normal)</button>
-    <button class="char" data-src="character3.glb" data-front="180">3. (pelerinli)</button>
+    <button class="char active" data-src="character67.glb" data-front="0">Normal</button>
+    <button class="char" data-src="character3.glb" data-front="180">Caped</button>
   </div>
-  <model-viewer id="mv" src="character67.glb" alt="67 karakter"
+  <model-viewer id="mv" src="character67.glb" alt="67 character"
     camera-controls auto-rotate auto-rotate-delay="0" rotation-per-second="20deg"
     shadow-intensity="0.9" shadow-softness="0.9" exposure="1.05"
     environment-image="neutral" tone-mapping="neutral" field-of-view="28deg"
     camera-orbit="0deg 90deg 105%" min-camera-orbit="auto 0deg auto" touch-action="pan-y">
   </model-viewer>
   <div class="bar views">
-    <button data-rel="0"   data-pol="90deg" data-dist="105%" class="active">Ön</button>
-    <button data-rel="180" data-pol="90deg" data-dist="105%">Arka</button>
-    <button data-rel="90"  data-pol="90deg" data-dist="105%">Yan</button>
-    <button data-rel="180" data-pol="82deg" data-dist="55%">Sırt yakın</button>
+    <button data-rel="0"   data-pol="90deg" data-dist="105%" class="active">Front</button>
+    <button data-rel="180" data-pol="90deg" data-dist="105%">Back</button>
+    <button data-rel="90"  data-pol="90deg" data-dist="105%">Side</button>
+    <button data-rel="180" data-pol="82deg" data-dist="55%">Back close-up</button>
   </div>
 </div>
 <script>
