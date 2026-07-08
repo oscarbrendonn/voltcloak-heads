@@ -19,11 +19,13 @@
     radial-gradient(130% 100% at 50% 22%, #171c26 0%, #0b0d10 68%); }
   .bar{ display:flex; gap:10px; justify-content:center; padding:14px;
     background:var(--panel); border-top:1px solid var(--line); flex-wrap:wrap; }
+  .bar.chars{ padding:12px 14px 0; border-top:none; background:transparent; }
   button{ appearance:none; border:1px solid #263042; background:#141a24; color:var(--txt);
     padding:10px 18px; border-radius:12px; font-size:14px; font-weight:600; cursor:pointer;
     font-family:inherit; transition:.15s; }
   button:hover{ border-color:#3c76c9; }
   button.active{ background:#2f81f7; border-color:#2f81f7; color:#fff; }
+  button.char.active{ background:#e6b800; border-color:#e6b800; color:#1a1400; }
 </style>
 </head>
 <body>
@@ -32,28 +34,47 @@
   <p>sürükle · döndür · yakınlaştır — inceleme için</p>
 </header>
 <div class="wrap">
+  <div class="bar chars">
+    <button class="char active" data-src="character67.glb" data-front="0">Sağdaki (normal)</button>
+    <button class="char" data-src="character3.glb" data-front="180">3. (pelerinli)</button>
+  </div>
   <model-viewer id="mv" src="character67.glb" alt="67 karakter"
     camera-controls auto-rotate auto-rotate-delay="0" rotation-per-second="20deg"
     shadow-intensity="0.9" shadow-softness="0.9" exposure="1.05"
     environment-image="neutral" tone-mapping="neutral" field-of-view="28deg"
     camera-orbit="0deg 90deg 105%" min-camera-orbit="auto 0deg auto" touch-action="pan-y">
   </model-viewer>
-  <div class="bar">
-    <button data-o="0deg 90deg 105%" class="active">Ön</button>
-    <button data-o="180deg 90deg 105%">Arka</button>
-    <button data-o="90deg 90deg 105%">Yan</button>
-    <button data-o="180deg 82deg 55%">Sırt yakın</button>
+  <div class="bar views">
+    <button data-rel="0"   data-pol="90deg" data-dist="105%" class="active">Ön</button>
+    <button data-rel="180" data-pol="90deg" data-dist="105%">Arka</button>
+    <button data-rel="90"  data-pol="90deg" data-dist="105%">Yan</button>
+    <button data-rel="180" data-pol="82deg" data-dist="55%">Sırt yakın</button>
   </div>
 </div>
 <script>
   const mv=document.getElementById('mv');
-  document.querySelectorAll('.bar button').forEach(b=>{
+  const viewBtns=[...document.querySelectorAll('.bar.views button')];
+  let front=0, activeView=viewBtns[0];
+  function applyView(){
+    const az=front+Number(activeView.dataset.rel);
+    mv.cameraOrbit=`${az}deg ${activeView.dataset.pol} ${activeView.dataset.dist}`;
+  }
+  viewBtns.forEach(b=>b.addEventListener('click',()=>{
+    viewBtns.forEach(x=>x.classList.remove('active')); b.classList.add('active');
+    activeView=b; applyView();
+  }));
+  document.querySelectorAll('.bar.chars button').forEach(b=>{
     b.addEventListener('click',()=>{
-      document.querySelectorAll('.bar button').forEach(x=>x.classList.remove('active'));
+      document.querySelectorAll('.bar.chars button').forEach(x=>x.classList.remove('active'));
       b.classList.add('active');
-      mv.cameraOrbit=b.dataset.o;
+      front=Number(b.dataset.front);
+      viewBtns.forEach(x=>x.classList.remove('active')); activeView=viewBtns[0]; viewBtns[0].classList.add('active');
+      mv.setAttribute('src', b.dataset.src);   // 'load' handler re-applies view
     });
   });
+  // model-viewer resets camera when a new model loads -> re-apply the chosen view
+  mv.addEventListener('load', ()=>applyView());
+  applyView();
 </script>
 </body>
 </html>
